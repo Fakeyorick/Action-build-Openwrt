@@ -1,7 +1,7 @@
 # Action-build-Openwrt
 [![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat&logo=github&label=LICENSE)](https://github.com/Fakeyorick/Action-build-Openwrt/blob/main/LICENSE)
 
-Through GitHub Actions Building Lede firware [Lean's OpenWrt](https://github.com/coolsnowwolf/lede).
+Building Lede [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) in Actions.
 
 Credit P3TERX: https://github.com/P3TERX/Actions-OpenWrt/  
 Credit KFERMercer: https://github.com/KFERMercer/OpenWrt-CI  
