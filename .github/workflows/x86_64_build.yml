@@ -22,6 +22,9 @@ jobs:
         sudo -E apt -y autoremove --purge
         sudo -E apt clean
         sudo -E timedatectl set-timezone "Asia/Shanghai"
+
+    - name: Checkout Own Repository
+      uses: actions/checkout@v4    
     
     - name: Checkout Openwrt Official
       uses: actions/checkout@v4
