@@ -1,4 +1,4 @@
-name: Build_x86_64
+name: Build_official_openwrt_x86_64
 
 on: 
   workflow_dispatch:
