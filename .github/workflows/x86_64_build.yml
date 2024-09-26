@@ -38,13 +38,20 @@ jobs:
         echo "src-git ssrp https://github.com/fw876/helloworld.git" >> openwrt/feeds.conf.default
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> openwrt/feeds.conf.default
         echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> openwrt/feeds.conf.default
-        git clone --depth 1 -b master --single-branch https://github.com/vernesong/OpenClash.git && mv OpenClash/luci-app-openclash openwrt/package/luci-app-openclash
-        
+        git clone --depth 1 -b master --single-branch https://github.com/vernesong/OpenClash.git && mv OpenClash/luci-app-openclash openwrt/package/luci-app-openclash    
+    
     - name: Update & Install feeds
       run: |
         openwrt/scripts/feeds clean
         openwrt/scripts/feeds update -a
         openwrt/scripts/feeds install -a
+
+    - name: Configure default settings
+      run: |
+        mkdir -p openwrt/files/etc/uci-defaults
+        cat << "EOF" > openwrt/files/etc/uci-defaults/99-custom
+        uci -q set network.lan.ipaddr='10.103.0.1'
+        EOF
 
     - name: Configuration Customization - Build_x86_64
       env:
