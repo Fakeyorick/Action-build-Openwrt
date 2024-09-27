@@ -26,22 +26,24 @@ jobs:
     - name: Checkout Own Repository
       uses: actions/checkout@v4    
 
-    - name: git official openwrt
-      run: |
-        git clone https://git.openwrt.org/openwrt/openwrt.git
-        cd openwrt
-        git pull
-        git branch -a
-        git tag
-        git checkout v23.05.4
+    - name: Checkout Openwrt Official
+      uses: actions/checkout@v4
+      with: 
+        repository: openwrt/openwrt
+        fetch-depth: '1'
+        path: openwrt
       
     - name: check space
       run: |
         df -h
+
+    - name: switch to github repo
+      run: |
+        sed -i 's:git.openwrt.org/feed:github.com/openwrt:g' openwrt/feeds.conf.default
+        sed -i 's:git.openwrt.org/project:github.com/openwrt:g' openwrt/feeds.conf.default
         
     - name: Set Proxy Plugin
       run: |
-        echo "src-git ssrp https://github.com/fw876/helloworld.git" >> openwrt/feeds.conf.default
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> openwrt/feeds.conf.default
         echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> openwrt/feeds.conf.default
         git clone --depth 1 -b master --single-branch https://github.com/vernesong/OpenClash.git && mv OpenClash/luci-app-openclash openwrt/package/luci-app-openclash    
@@ -56,7 +58,7 @@ jobs:
       run: |
         mkdir -p openwrt/files/etc/uci-defaults
         cat << "EOF" > openwrt/files/etc/uci-defaults/99-custom
-        uci -q set network.lan.ipaddr='10.103.0.1'
+        uci -q set network.lan.ipaddr='10.103.0.4'
         EOF
 
     - name: Configuration Customization - Build_x86_64
