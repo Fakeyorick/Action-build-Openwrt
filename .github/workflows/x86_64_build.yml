@@ -58,7 +58,7 @@ jobs:
       run: |
         mkdir -p openwrt/files/etc/uci-defaults
         cat << "EOF" > openwrt/files/etc/uci-defaults/99-custom
-        uci -q set network.lan.ipaddr='10.103.0.4'
+        uci -q set network.lan.ipaddr='10.1.200.1'
         EOF
 
     - name: Configuration Customization - Build_x86_64
@@ -79,7 +79,7 @@ jobs:
         make -j1 V=s defconfig download clean world
 
     - name : Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenWrt
         path: openwrt/bin
